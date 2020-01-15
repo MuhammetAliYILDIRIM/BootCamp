@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class Student {
 	String name;
@@ -5,15 +6,21 @@ public class Student {
 	int number;
 	String[] enrolledClasses = new String[3];
 
-	public void enrol() {
-		if (enrolledClasses[0] == null) {
-			System.out.println("There is not any enrolled class");
-		} else {
-			for (String className : enrolledClasses) {
-				System.out.println(className);
-			}
+	public void autoenrol(String[] classes) {
+		for(int i = 0; i<classes.length;i++) {
+			enrolledClasses[i]=classes[i];
 		}
-
+	}
+	
+	public void enrol() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please enter 3 classes");
+		
+		for(int i = 0 ; i < 3;i++) {
+			System.out.println("Enter "+i + " nd class");
+			enrolledClasses[i]=scan.nextLine();
+		}
+		scan.close();
 	}
 
 	public void printStudentInfo() {
@@ -22,6 +29,14 @@ public class Student {
 		} else {
 			System.out
 					.println("Student name :" + name + "\nStudent surname ;" + surname + "\nStudent number :" + number);
+			if (enrolledClasses[0] == null) {
+				System.out.println("There is not any enrolled class");
+			} else {
+				for (String className : enrolledClasses) {
+					System.out.println(className);
+				}
+			}
+
 		}
 	}
 
@@ -39,9 +54,8 @@ public class Student {
 		this.name = name;
 		this.surname = surname;
 		this.number = number;
-		enrolledClasses[0]=classOne;
-		enrolledClasses[1]=classTwo;
-		enrolledClasses[2]=classThree;
+		String [] classes = {classOne,classTwo,classThree};
+		autoenrol(classes);
 		
 	}
 
