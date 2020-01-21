@@ -14,6 +14,11 @@ public abstract class Tree {
 
 	public void cut() {
 		System.out.println( name +" was Cutted");
-		height -= 3;
+		if(height>0.7) {
+			height -= 0.7;
+		}else {
+			height=0;
+		}
+		
 	}
 }
