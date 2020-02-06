@@ -32,7 +32,7 @@ public class Point {
 
 	public double distance() {
 
-		return (double) Math.sqrt((x * x + y * y));
+		return (double) Math.sqrt(x * x + y * y);
 	}
 
 	public double distance(int x, int y) {
@@ -40,7 +40,7 @@ public class Point {
 	}
 
 	public double distance(Point point) {
-		return (double) Math.sqrt((this.x - point.x) * (this.x - point.x) + (this.y - point.y) * (this.y - point.y));
+		return (double) Math.sqrt((x - point.x) * (x - point.x) + (y - point.y) * (y - point.y));
 	}
 
 }
