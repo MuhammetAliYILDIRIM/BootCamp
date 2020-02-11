@@ -3,9 +3,9 @@ package homework3;
 public class Item {
 	private String name;
 	private double price;
-	private kind itemKind;
+	private Type itemKind;
 
-	public Item(String name, double price, kind itemKind) {
+	public Item(String name, double price, Type itemKind) {
 		this.name = name;
 		this.price = price;
 		this.itemKind = itemKind;
@@ -27,11 +27,11 @@ public class Item {
 		this.price = price;
 	}
 
-	public kind getItemKind() {
+	public Type getItemKind() {
 		return itemKind;
 	}
 
-	public void setItemKind(kind itemKind) {
+	public void setItemKind(Type itemKind) {
 		this.itemKind = itemKind;
 	}
 }
