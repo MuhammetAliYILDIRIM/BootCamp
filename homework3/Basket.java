@@ -4,61 +4,81 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Basket {
 	private List<Item> myBasket;
+	private Map<Item, Long> groupedList;
 
 	public Basket() {
 		myBasket = new ArrayList<>();
 	}
 
-	public void addItem(String name, double price, Type itemKind, int count) {
+	public void addItem(Item newItem, int count) {
 		if (count < 0) {
 			System.out.println("invalid cost");
 		} else {
 
 			for (int i = 1; i <= count; i++) {
-				myBasket.add(new Item(name, price, itemKind));
+				myBasket.add(newItem);
 			}
 		}
+		groupByList();
 	}
 
-	public void deleteItem(String deleteItem, int deleteCount) {
-		for (int i = 1; i <= deleteCount; i++) {
+	public void deleteItem(Item deleteItem, int numberOfDelete) {
+		if (numberOfDelete < 0) {
+			System.out.println("Number of delete cannot be negative");
 
-			for (Item item : myBasket) {
-				if (item.getName().equals(deleteItem)) {
-					myBasket.remove(item);
-					break;
+		} else {
+			if (myBasket.contains(deleteItem)) {
+				if (countItem(deleteItem) < numberOfDelete) {
+					System.out.println("Invalid delete number");
+				} else {
+					for (int i = 1; i <= numberOfDelete; i++) {
+						myBasket.remove(deleteItem);
+					}
 				}
+
+			} else {
+				System.out.println("Item cannot be founded!");
 			}
 		}
+		groupByList();
+	}
+
+	public int countItem(Item item) {
+		return groupedList.get(item).intValue();
+	}
+
+	public void groupByList() {
+		groupedList = myBasket.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
 	}
 
 	public void bill() {
 		NumberFormat fm = NumberFormat.getCurrencyInstance();
 		double totalPrice = 0.;
-		
-		System.out.println("----------------BILL-------------------");
-		
+
+		System.out.println("----------------------BILL--------------------------");
+
 		for (Item i : myBasket) {
-			System.out.println(i.getItemKind() + "\t\t" + i.getName() + "\t\t" + fm.format(i.getPrice()));
+			
+			System.out.printf("%-20s%-20s%-20s\n", i.getItemKind().toString(), i.getName(), fm.format(i.getPrice()));
+
 			totalPrice += i.getPrice();
 		}
-		
-		Map<String, List<Item>> giftList = myBasket.stream().collect(Collectors.groupingBy(Item::getName));
-		giftList.forEach((key, value) -> {
-			if (value.size() > 2) {
-				for (int i = 1; i <= value.size() / 3; i++) {
-
-					System.out.println(value.get(0).getItemKind() + "\t\t" + key + "\t\t" + "Gifted Item");
+		groupedList.forEach((key, value) -> {
+			if (value >= 3) {
+				for (int i = 1; i <= value / 3; i++) {
+					System.out.printf("%-20s%-20s%-20s\n", key.getItemKind().toString(), key.getName(), "Gifted Item");
 				}
 			}
-
 		});
-
+		System.out.println("----------------------------------------------------");
 		System.out.println("Total Price :" + fm.format(totalPrice));
+		System.out.println("----------------------------------------------------");
 	}
 
 }
