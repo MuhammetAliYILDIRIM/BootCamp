@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Basket {
+	
 	private List<Item> myBasket;
 	private Map<Item, Long> groupedList;
 
@@ -33,7 +34,7 @@ public class Basket {
 
 		} else {
 			if (myBasket.contains(deleteItem)) {
-				if (countItem(deleteItem) < numberOfDelete) {
+				if (groupedList.get(deleteItem) < numberOfDelete) {
 					System.out.println("Invalid delete number");
 				} else {
 					for (int i = 1; i <= numberOfDelete; i++) {
@@ -48,10 +49,6 @@ public class Basket {
 		groupByList();
 	}
 
-	public int countItem(Item item) {
-		return groupedList.get(item).intValue();
-	}
-
 	public void groupByList() {
 		groupedList = myBasket.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
@@ -64,7 +61,7 @@ public class Basket {
 		System.out.println("----------------------BILL--------------------------");
 
 		for (Item i : myBasket) {
-			
+
 			System.out.printf("%-20s%-20s%-20s\n", i.getItemKind().toString(), i.getName(), fm.format(i.getPrice()));
 
 			totalPrice += i.getPrice();
