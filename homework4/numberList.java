@@ -9,13 +9,19 @@ public class numberList {
 		Scanner scan = new Scanner(System.in);
 		List<Integer> numbers = new ArrayList<Integer>();
 		System.out.println("If you enter -1,you quit the program");
+		int number;
 		while (true) {
 			try {
 				System.out.println("Enter a number ");
-				numbers.add(Integer.parseInt(scan.nextLine()));
-				if ((numbers.get(numbers.size() - 1) == -1)) {
+				number = Integer.parseInt(scan.nextLine());
+				if (number == -1) {
 					break;
 				}
+				if (numbers.contains(number)) {
+					System.out.println("the number has  aldready been in the list");
+					continue;
+				}
+				numbers.add(number);
 				System.out.println(numbers.toString());
 
 			} catch (NumberFormatException e) {
