@@ -5,9 +5,9 @@ public class Item {
 	private double price;
 	private Type itemKind;
 
-	public Item(String name, double price, Type itemKind) {
+	public Item(String name, double price, Type itemKind) throws IllegalArgumentException {
 		this.name = name;
-		this.price = price;
+		setPrice(price);
 		this.itemKind = itemKind;
 	}
 
@@ -24,7 +24,11 @@ public class Item {
 	}
 
 	public void setPrice(double price) {
+		if(price<0) {
+			throw new IllegalArgumentException("Price cannot be negative ! ");
+		}else {
 		this.price = price;
+		}
 	}
 
 	public Type getItemKind() {
