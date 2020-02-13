@@ -1,7 +1,6 @@
 package homework4;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,7 +8,7 @@ public class numberList {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		List<Integer> numbers = new ArrayList<Integer>();
-		System.out.println("If you quit program enter -1");
+		System.out.println("If you enter -1,you quit the program");
 		while (true) {
 			try {
 				System.out.println("Enter a number ");
