@@ -46,7 +46,7 @@ public class LinkedHashSetEx {
 					break;
 
 				default:
-					System.out.println("Unvalid comment");
+					System.out.println("Unvalid command");
 					break;
 				}
 
