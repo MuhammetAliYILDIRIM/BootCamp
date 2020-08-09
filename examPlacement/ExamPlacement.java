@@ -1,3 +1,4 @@
+package examPlacement;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class ExamPlacement {
 
 		double[] studentScores;
 		int numberOfStudent = 0;
-		File newFile = new File("Student.txt");
+		File newFile = new File("examPlacement/Student.txt");
 		Scanner readFile;
 		try {
 			readFile = new Scanner(newFile);
