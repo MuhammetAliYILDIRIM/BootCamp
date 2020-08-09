@@ -6,20 +6,20 @@ import java.util.Scanner;
 /*studentList is a multidimensional String Array which stores students information .
  * 
  * studentList[i][0]=Student name
- * studentList[i][1]=sayisal answers
- * studentList[i][2]=sozel answers
+ * studentList[i][1]=science answers
+ * studentList[i][2]=letter answers
  * studentList[i][3]=1.choice
  * studentList[i][4]=2.choice
  * studentList[i][5]=3.choice
  * studentList[i][6]=placed university
  * */
-public class ossPlacement {
+public class ExamPlacement {
 	final static String scienceAnswersKey = "ABCDBAEDDACDBEDCABDEDACADEDBAB",
 			letterAnswersKey = "BCDABCAEBBADCCAEBADCBADBCADBBE";
-	final static String universityName[][] = { { "Izmir universitesi", "IZM" }, { "Istanbul Universitesi", "IST" },
-			{ "Ankara Universitesi", "ANK" } };
-	final static int mathMultiple = 3, scienceMultiple = 3, turkceMultiple = 2, socialMultiple = 1;
-	final static int universiteKontenjan[] = { 3, 5, 4 };
+	final static String universityName[][] = { { "Izmir University", "IZM" }, { "Istanbul University", "IST" },
+			{ "Ankara University", "ANK" } };
+	final static int mathMultiple = 3, scienceMultiple = 3, turkishLanguageMultiple = 2, socialMultiple = 1;
+	final static int universityVacancy[] = { 3, 5, 4 };
 	static double[] sortedScores;
 	static int[] sortedIndex;
 	static String[][] studentsList;
@@ -83,7 +83,7 @@ public class ossPlacement {
 			for (int j = 3; j < 6; j++) {
 				if (checkKontenjan(studentsList[sortedIndex[i]][j])) {
 					int numberOfBolum = checkUniNumber(studentsList[sortedIndex[i]][j]);
-					universiteKontenjan[numberOfBolum]--;
+					universityVacancy[numberOfBolum]--;
 					studentsList[sortedIndex[i]][6] = universityName[numberOfBolum][0];
 					break;
 				}
@@ -97,7 +97,7 @@ public class ossPlacement {
 		if (numberOfBolum == -1) {
 			return false;
 
-		} else if (universiteKontenjan[numberOfBolum] > 0) {
+		} else if (universityVacancy[numberOfBolum] > 0) {
 			return true;
 		} else
 			return false;
@@ -174,7 +174,7 @@ public class ossPlacement {
 				* checkAnswers(studentScienceAnswers.substring(0, 20), scienceAnswersKey.substring(0, 20));
 		sciencePoint = scienceMultiple
 				* checkAnswers(studentScienceAnswers.substring(20, 30), scienceAnswersKey.substring(20, 30));
-		turkcePoint = turkceMultiple
+		turkcePoint = turkishLanguageMultiple
 				* checkAnswers(studentLetterAnswers.substring(0, 20), letterAnswersKey.substring(0, 20));
 		socialPoint = socialMultiple
 				* checkAnswers(studentLetterAnswers.substring(20, 30), letterAnswersKey.substring(20, 30));
@@ -183,17 +183,17 @@ public class ossPlacement {
 
 	static double checkAnswers(String studentAnswers, String checkAnswers) {
 		double trueAnswers = 0;
-		double wrongAnsers = 0;
+		double wrongAnswers = 0;
 		for (int i = 0; i < studentAnswers.length(); i++) {
 			if (studentAnswers.charAt(i) == ' ') {
 				continue;
 			} else if (studentAnswers.charAt(i) == checkAnswers.charAt(i)) {
 				trueAnswers++;
 			} else {
-				wrongAnsers++;
+				wrongAnswers++;
 			}
 		}
-		trueAnswers -= (wrongAnsers / 4);
+		trueAnswers -= (wrongAnswers / 4);
 
 		return trueAnswers;
 	}
